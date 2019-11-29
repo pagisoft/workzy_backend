@@ -18,7 +18,7 @@ import static com.techshian.model.Constants.TOKEN_PREFIX;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     @Autowired
@@ -30,12 +30,12 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
-    public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    public ResponseEntity<?> signin(@RequestBody LoginUser loginUser) throws AuthenticationException {
 
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginUser.getUsername(),
+                        loginUser.getEmail(),
                         loginUser.getPassword()
                 )
         );

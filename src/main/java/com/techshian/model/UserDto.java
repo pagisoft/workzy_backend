@@ -4,8 +4,7 @@ public class UserDto {
 
     private String username;
     private String password;
-    private int age;
-    private int salary;
+    private String email;
 
     public String getUsername() {
         return username;
@@ -23,19 +22,15 @@ public class UserDto {
         this.password = password;
     }
 
-    public int getAge() {
-        return age;
-    }
+  
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public int getSalary() {
-        return salary;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
+     
 }
