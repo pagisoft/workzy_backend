@@ -15,3 +15,15 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v3
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: workzy-api
+        environment_name: workzy-api
+        region: us-east-1
+        deployment_package: target/*.war
+    
+      
