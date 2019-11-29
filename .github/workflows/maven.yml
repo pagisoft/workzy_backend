@@ -24,6 +24,6 @@ jobs:
         application_name: workzy-api
         environment_name: workzy-api
         region: us-east-1
-        deployment_package: target/*.war
+        deployment_package: ${{ GITHUB_WORKSPACE }}/target/*.war
     
       
