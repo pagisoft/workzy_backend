@@ -18,7 +18,7 @@ jobs:
       
     - name: Build site assets
       working-directory: ${{ github.workspace }}
-      run: ls -la
+      run: ls -la target
       
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v3
