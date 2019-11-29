@@ -16,6 +16,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
       
+    - name: Build site assets
+      working-directory: ${{ github.workspace }}
+      run: ls -la
+      
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v3
       with:
@@ -24,6 +28,6 @@ jobs:
         application_name: workzy-api
         environment_name: workzy-api
         region: us-east-1
-        deployment_package: ${{ GITHUB_WORKSPACE }}/target/*.war
+        deployment_package: ${{ github.workspace }}/target/*.war
     
       
