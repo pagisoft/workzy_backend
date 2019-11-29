@@ -16,11 +16,10 @@ public class User {
     @Column
     @JsonIgnore
     private String password;
+   
     @Column
-    private long salary;
-    @Column
-    private int age;
-
+    private String email;
+   
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES", joinColumns = {
             @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
@@ -51,21 +50,17 @@ public class User {
         this.password = password;
     }
 
-    public long getSalary() {
-        return salary;
-    }
+   
 
-    public void setSalary(long salary) {
-        this.salary = salary;
-    }
+    public String getEmail() {
+		return email;
+	}
 
-    public int getAge() {
-        return age;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+	
 
     public Set<Role> getRoles() {
         return roles;

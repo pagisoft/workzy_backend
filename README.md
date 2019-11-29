@@ -5,3 +5,7 @@
  2.  JWT (0.6.0)
  3.  Mysql
  4. Java 1.8
+ 
+ 
+ # Make sure , machine should have maven and jdk installed 
+ 
