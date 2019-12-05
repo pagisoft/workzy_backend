@@ -19,16 +19,11 @@ jobs:
     - name: Build site assets
       working-directory: ${{ github.workspace }}
       run: ls -la target
-      
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v3
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: workzy-api
-        environment_name: workzy-api
-        version_label: 1
-        region: us-east-1
-        deployment_package: target/workzy-1.0-SNAPSHOT.war
+    
+    - name: Build Number Generator
+      uses: einaregilsson/build-number@v2
+    
+    - name: Print new build number
+      run: echo "Build number is $BUILD_NUMBER"
     
       
