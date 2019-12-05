@@ -1,4 +1,4 @@
-#Workzy Java , Spring boot
+#Workzy Java, Spring boot
 ## Technology Used
 
  1. Spring Boot (1.5.8.RELEASE)
