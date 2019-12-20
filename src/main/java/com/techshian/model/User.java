@@ -3,6 +3,8 @@ package com.techshian.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.util.Set;
 
 @Entity
@@ -11,13 +13,18 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+   
     @Column
+    @NotNull
     private String username;
+  
     @Column
+    @NotNull
     @JsonIgnore
     private String password;
    
     @Column
+    @NotNull
     private String email;
    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

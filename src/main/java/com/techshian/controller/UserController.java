@@ -4,6 +4,7 @@ import com.techshian.model.User;
 import com.techshian.model.UserDto;
 import com.techshian.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +34,14 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public User saveUser(@RequestBody UserDto user){
+    @RequestMapping(value="/signupEmployer", method = RequestMethod.POST)
+    public ResponseEntity<?> signupEmployer(@RequestBody UserDto user){
         return userService.save(user);
+    }
+    
+    @RequestMapping(value="/signupTalent", method = RequestMethod.POST)
+    public ResponseEntity<?> signupTalent(@RequestBody UserDto user){
+        return userService.saveTalent(user);
     }
 
 

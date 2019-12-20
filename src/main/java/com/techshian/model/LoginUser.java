@@ -1,8 +1,12 @@
 package com.techshian.model;
 
+import javax.validation.constraints.NotNull;
+
 public class LoginUser {
 
+	@NotNull
     private String email;
+	@NotNull
     private String password;
 
     public String getEmail() {

@@ -1,10 +1,16 @@
 package com.techshian.service.impl;
 
+import com.techshian.dao.RoleDao;
 import com.techshian.dao.UserDao;
+import com.techshian.exception.AppException;
+import com.techshian.model.Role;
+import com.techshian.model.RoleName;
 import com.techshian.model.User;
 import com.techshian.model.UserDto;
 import com.techshian.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +27,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+	RoleDao roleRepository;
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
 
@@ -64,11 +73,37 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-    public User save(UserDto user) {
+    public ResponseEntity<?> save(UserDto user) {
+		 
+		if(userDao.existsByEmail(user.getEmail())) {
+	            return new ResponseEntity(new com.techshian.payload.ApiResponse(false, "Email Address already in use!"),HttpStatus.BAD_REQUEST);
+	    }
+		
 	    User newUser = new User();
 	    newUser.setUsername(user.getUsername());
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setEmail(user.getEmail());
-        return userDao.save(newUser);
+		Role userRole = roleRepository.findByName(RoleName.ROLE_EMPLOYER)
+	                .orElseThrow(() -> new AppException("User Role not set."));
+		newUser.setRoles(Collections.singleton(userRole));
+        return new ResponseEntity<>(userDao.save(newUser),HttpStatus.BAD_GATEWAY);
+    }
+	
+	@Override
+    public ResponseEntity<?> saveTalent(UserDto user) {
+		
+		  if(userDao.existsByEmail(user.getEmail())) {
+	            return new ResponseEntity(new com.techshian.payload.ApiResponse(false, "Email Address already in use!"),HttpStatus.BAD_REQUEST);
+	        }
+	        
+	    User newUser = new User();
+	    newUser.setUsername(user.getUsername());
+	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setEmail(user.getEmail());
+		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+	                .orElseThrow(() -> new AppException("User Role not set."));
+		newUser.setRoles(Collections.singleton(userRole));
+        return new ResponseEntity<>(userDao.save(newUser),HttpStatus.BAD_GATEWAY);
+
     }
 }

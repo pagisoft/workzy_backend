@@ -2,6 +2,9 @@ package com.techshian.model;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NaturalId;
+
+
 @Entity
 public class Role {
 
@@ -9,8 +12,10 @@ public class Role {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Column
-    private String name;
+    @Enumerated(EnumType.STRING)
+	@NaturalId
+	@Column(name="role_name")
+    private RoleName name;
 
     @Column
     private String description;
@@ -23,11 +28,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public RoleName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleName name) {
         this.name = name;
     }
 
