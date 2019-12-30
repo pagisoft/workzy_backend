@@ -34,16 +34,6 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/signupEmployer", method = RequestMethod.POST)
-    public ResponseEntity<?> signupEmployer(@RequestBody UserDto user){
-        return userService.save(user);
-    }
-    
-    @RequestMapping(value="/signupTalent", method = RequestMethod.POST)
-    public ResponseEntity<?> signupTalent(@RequestBody UserDto user){
-        return userService.saveTalent(user);
-    }
-
 
 
 }

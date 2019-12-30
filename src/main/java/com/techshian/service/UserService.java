@@ -16,4 +16,6 @@ public interface UserService {
 
     User findById(Long id);
 	ResponseEntity<?> saveTalent(UserDto user);
+	ResponseEntity<?> update(User user);
+	User loadUserByEmail(String id);
 }

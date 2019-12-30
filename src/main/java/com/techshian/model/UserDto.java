@@ -5,8 +5,19 @@ public class UserDto {
     private String username;
     private String password;
     private String email;
+    private String link;
+    
+    
 
-    public String getUsername() {
+    public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getUsername() {
         return username;
     }
 
