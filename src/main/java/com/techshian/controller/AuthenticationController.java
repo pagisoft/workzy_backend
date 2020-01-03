@@ -89,13 +89,13 @@ public class AuthenticationController {
 			
 			 
 			
-			if(userDetailsService.loadUserByUsername(loginRequest.getEmail())!=null) {
+			if(userService.loadUserByEmail(loginRequest.getEmail())!=null) {
 					
 
 			        SimpleMailMessage msg = new SimpleMailMessage();
 			        msg.setFrom("verify-email@workzy.com");
 			        msg.setTo(loginRequest.getEmail());
-			        msg.setText("Dear Customer, Looks like you have forgot your password ,Please  click the reset password link below to reset password: http://localhost:4200/#/panel/change-password/"+ URLEncoder.encode(AES.encrypt(loginRequest.getEmail()+"#"+new Date(),"techshian"), "UTF-8"));
+			        msg.setText("Dear Customer, Looks like you have forgot your password ,Please  click the reset password link below to reset password: http://qa.workzy.eu/:4200/#/panel/change-password/"+ URLEncoder.encode(AES.encrypt(loginRequest.getEmail()+"#"+new Date(),"techshian"), "UTF-8"));
 			        msg.setSubject("workzy.com - Reset Password !");
 			       
 			        try {
@@ -112,7 +112,7 @@ public class AuthenticationController {
 			
 		 } catch (Exception e) {
 			// TODO: handle exception
-			return new ResponseEntity<>(new ApiResponse(true,"Please try again , referral link not found  !"),HttpStatus.BAD_GATEWAY);
+			return new ResponseEntity<>(new ApiResponse(false,"Please try again , referral link not found  !"),HttpStatus.BAD_GATEWAY);
 		}
 		
 	}
@@ -126,24 +126,7 @@ public class AuthenticationController {
 			String check = AES.decrypt(talentAuthRequest.getLink(),  "techshian");
 			String[] codes= check.split("#");
 			String id = codes[0];
-			SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-			String dateInString = codes[1];
-			Date date = new Date(dateInString);
 			
-			
-			Calendar cal = Calendar.getInstance(); // creates calendar
-		    cal.setTime(date); // sets calendar time/date
-		    cal.add(Calendar.HOUR_OF_DAY, 8); // adds one hour
-		    
-			
-		
-		  if(
-		  cal.getTime().getTime() < new Date().getTime() ) {
-		  
-		     return new ResponseEntity(new ApiResponse(false,"Please try later!"),HttpStatus.BAD_REQUEST);
-		  
-		 }
-		 
 			
 			if(!id.isEmpty() && userService.loadUserByEmail(id) != null) {
 				User user =  userService.loadUserByEmail(id) ;
