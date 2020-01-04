@@ -95,7 +95,7 @@ public class AuthenticationController {
 			        SimpleMailMessage msg = new SimpleMailMessage();
 			        msg.setFrom("verify-email@workzy.com");
 			        msg.setTo(loginRequest.getEmail());
-			        msg.setText("Dear Customer, Looks like you have forgot your password ,Please  click the reset password link below to reset password: http://qa.workzy.eu/:4200/#/panel/change-password/"+ URLEncoder.encode(AES.encrypt(loginRequest.getEmail()+"#"+new Date(),"techshian"), "UTF-8"));
+			        msg.setText("Dear Customer, Looks like you have forgot your password ,Please  click the reset password link below to reset password: http://qa.workzy.eu/#/panel/change-password/"+ URLEncoder.encode(AES.encrypt(loginRequest.getEmail()+"#"+new Date(),"techshian"), "UTF-8"));
 			        msg.setSubject("workzy.com - Reset Password !");
 			       
 			        try {
