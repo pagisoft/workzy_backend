@@ -1,8 +1,12 @@
 package com.techshian.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.techshian.controller.BaseController.BaseController;
 import com.techshian.model.User;
 import com.techshian.model.UserDto;
 import com.techshian.service.UserService;
+
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -13,7 +17,8 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-public class UserController {
+@RequestMapping("/secure")
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
@@ -26,11 +31,11 @@ public class UserController {
     }
 
     //@Secured("ROLE_USER")
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     ////@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public User getOne(@PathVariable(value = "id") Long id){
-        return userService.findById(id);
+    @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
+    public User getOne() throws JsonProcessingException, JSONException{
+        return userService.loadUserByEmail( getLoggedInUser());
     }
 
 
